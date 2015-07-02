@@ -10,14 +10,17 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Login extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtname;
-	private JTextField txtip;
+	private JTextField txtName;
+	private JTextField txtIp;
 	private JTextField txtPort;
-
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -55,19 +58,19 @@ public class Login extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		txtname = new JTextField();
-		txtname.setBounds(82, 48, 129, 20);
-		contentPane.add(txtname);
-		txtname.setColumns(10);
+		txtName = new JTextField();
+		txtName.setBounds(82, 48, 129, 20);
+		contentPane.add(txtName);
+		txtName.setColumns(10);
 		
 		JLabel lblName = new JLabel("Name:");
 		lblName.setBounds(124, 33, 46, 14);
 		contentPane.add(lblName);
 		
-		txtip = new JTextField();
-		txtip.setBounds(89, 144, 122, 20);
-		contentPane.add(txtip);
-		txtip.setColumns(10);
+		txtIp = new JTextField();
+		txtIp.setBounds(89, 144, 122, 20);
+		contentPane.add(txtIp);
+		txtIp.setColumns(10);
 		
 		txtPort = new JTextField();
 		txtPort.setBounds(89, 235, 122, 20);
@@ -83,7 +86,29 @@ public class Login extends JFrame {
 		contentPane.add(lblPort);
 		
 		JButton btnLogin = new JButton("Login");
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Button pressed");
+				String name = txtName.getText();
+				String adress = txtIp.getText();
+				int port = Integer.parseInt(txtPort.getText());
+				
+				login(name, adress, port);
+			}
+		});
 		btnLogin.setBounds(102, 299, 89, 23);
 		contentPane.add(btnLogin);
+	}
+	
+	/**
+	 * Login Stuff
+	 */
+	private void login(String name, String adress, int port) {
+		dispose();
+		System.out.println(name + ", " + adress + ", " + port);
+		
+		new Client(name, adress, port);
+		
+		
 	}
 }
